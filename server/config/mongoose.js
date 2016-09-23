@@ -4,7 +4,7 @@ var mongoose      = require('mongoose'),
     path          = require('path'),
     models_path   = path.join( __dirname, "../models"),
     reg           = new RegExp( ".js$", "i" ),
-    dbURI         = 'mongodb://discussion_board_db:9ce0d01ef1ea62e72fa19e3e7bb9bb21@dokku-mongo-discussion-board-db:27017/discussion_board_db';
+    dbURI         = process.env.MONGO_URL;
 
 mongoose.connect( dbURI );
 
