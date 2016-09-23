@@ -1,0 +1,46 @@
+<div id="navbar">
+	<a href="#/dashboard" ng-hide="dashboard">Dashboard</a> | <a href="#/" ng-click="logout()">Logout</a> 
+</div>
+
+
+
+<h2 class="fw"><a href="#/user/{{ post.user.id }}">{{ post.user.name }}</a> posted a topic:</h2>
+<p class="fw indentone"><b><i>{{ post.topic }}</i></b></p>
+<p class="fw indentone">Description: {{ post.description }}</p>
+
+
+
+<h3>Post your answer here...</h3>
+<form class="indentone" ng-submit="createAnswer(newAnswer)">
+	<textarea cols="150" rows="5" ng-model="newAnswer.content"></textarea>
+	<input type="submit" value="Post" class="btn"> 
+</form>
+
+
+
+
+<hr class="fw">
+
+
+
+
+<div class="answer indentone fw" ng-repeat="answer in post.answers">
+
+
+	<div class="answerContent">
+		<p><a href="#/user/{{ answer.user._id }}">{{ answer.user.first_name }}</a>: {{ answer.content }}</p>
+		<span>UP/DOWNVOTE FIX ME</span>
+	</div>
+
+	<div class="answerComments indentone" ng-repeat="comment in answer.comments">
+		<p><a href="#/user/{{ comment.user._id }}">{{ comment.user.first_name }}</a> {{ comment.content }}</p>
+	</div>
+
+
+	<form class="indentone" ng-submit="createComment(newComment)">
+		<textarea cols="130" rows="5" ng-model="newComment[$index].content"></textarea>
+		<input type="submit" value="Comment" class="btn">
+	</form>
+
+	<hr>
+</div>

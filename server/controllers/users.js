@@ -1,0 +1,78 @@
+require('../models/user.js');
+var mongoose 		= require('mongoose'),
+	Users 			= mongoose.model('Users'),
+	bcrypt			= require('bcrypt');
+
+
+function usersController(){
+	this.index = function(req,res){
+		return Users.find({}, function(err, result){
+			if(err){
+				return res.json({errors: err});
+			};
+			res.json({data: result});
+		})
+	};
+
+	this.create = function(req,res){
+		return Users.create(req.body, function(err, result){
+			if(err){
+				console.log("=============REGERROR ")
+				console.log(err)
+				return res.json({errors: err});
+			};
+			res.json({data: result});
+		})
+	};
+
+	this.delete = function(req,res){
+		Users.remove({"_id": req.params.id}, function(err, result){
+			if(err){
+				return res.json({errors: err});
+			};
+			res.json({data: result});
+		});
+	};
+
+	this.login = function(req,res){
+		console.log("==============LOGIN")
+		console.log(req.body.email)
+		console.log(req.body.password)
+		if(!req.body.email || !req.body.password){
+			return res.json({
+				errors: {
+					login_reg: {
+						message: "user name and password is required",
+						kind: "what didn't work",
+						path: "reference to the schema's name",
+						value: "cause of the initial error"
+					}
+				},
+				name: "Validation error"
+			});				
+		}
+		Users.findOne({email: req.body.email}, function(err, result){
+			if(err){
+				return res.json({errors: err});
+			}else if(result == null) {
+				return res.json({
+					errors: {
+						login_reg: {
+							message: "user name and/or password is invalid",
+							kind: "what didn't work",
+							path: "reference to the schema's name",
+							value: "cause of the initial error"
+						}
+					},
+					name: "Validation error"
+				});		
+			}else if (bcrypt.compareSync(req.body.password, result.password)){
+				return res.json({data: result})
+			}else{
+				console.log("ALL HOPE IS LOST")
+			}
+		});
+	};
+}
+
+module.exports = new usersController();

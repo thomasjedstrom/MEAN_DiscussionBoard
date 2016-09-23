@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Discussion Board</title>
+	<script src="angular/angular.js" charset="utf-8"></script>
+	<script src="angular-route/angular-route.js" charset="utf-8"></script>
+	<script src="angular-momentjs/angular-momentjs.min.js"></script>
+	<script src="assets/app.js" charset="utf-8"></script>
+	<script src="models/userFactory.js"></script>
+	<script src="models/postFactory.js"></script>
+	<script src="models/categoryFactory.js"></script>
+	<script src="controllers/loginController.js"></script>
+	<script src="controllers/dashboardController.js"></script>
+	<script src="controllers/userController.js"></script>
+	<script src="controllers/postController.js"></script>
+	<link rel="stylesheet" href="assets/style.css">
+</head>
+
+	<body ng-app='app'>
+		<div ng-view id="wrapper"></div>
+	</body>
+
+</html>

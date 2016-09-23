@@ -1,0 +1,100 @@
+*{
+	font-family: sans-serif;
+}
+#wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 1000px;
+	margin: auto;
+}
+.fw{
+	width: 100vw;
+}
+table {
+    border: 3px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+}
+tr:nth-child(even) {background-color: #f2f2f2}
+th {
+    background-color: gray;
+    color: white;
+}
+
+.panel{
+	border: 3px solid black;
+	display: inline-block;
+	margin: 20px;
+	padding: 2em;
+	position: relative;
+}
+.panelTitle{
+	position: absolute;
+	top: -1.5em;
+	left: 1em;
+	background: white;
+	display: inline-block;
+}
+
+.btn{
+	display: inline-block;
+	margin: 25px;
+	text-decoration: none;
+	color: black;
+	border-radius: 0px;
+	border: 3px solid black;
+	box-shadow: 4px 4px 0px black;
+	background: white;
+	font-size: 1em;
+	padding: 4px;
+}
+.blue{
+	background: blue;
+	color: white;
+}
+.red{
+	background: red;
+	color: white;
+}
+input, textarea, select{
+	border: 3px solid black;
+	margin: 5px;
+}
+.error{
+	color: red;
+	background: pink;
+	border: 3px solid red;
+	border-radius: 5px;
+	padding: 4px;
+	line-height: 2.5em;
+}
+.leftnav{
+	display: block;
+	width: 15em;
+	height: 90vh;
+}
+
+
+/*=========== DASHBOARD ===============*/
+#dashboardFilter{
+	text-align: right;
+}
+#dashboardTable{
+	width: 100%;
+}
+#addTopic * label{
+	display: inline-block;
+	width:100px;
+}
+
+/*============ TOPIC SHOW =============*/
+.indentone{
+	margin-left: 5em;
+}
+.indenttwo{
+	margin-left: 10em;
+}

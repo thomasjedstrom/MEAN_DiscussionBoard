@@ -1,0 +1,22 @@
+{
+  "name": "discussion-board",
+  "homepage": "https://github.com/thomasjedstrom/mean-sept-2016",
+  "authors": [
+    "Thomas Edstrom <thomasjedstrom@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-momentjs": "^0.2.2"
+  }
+}

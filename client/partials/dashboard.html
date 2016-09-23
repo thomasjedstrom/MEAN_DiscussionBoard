@@ -1,0 +1,55 @@
+<div id="navbar">
+	<a href="#/dashboard" ng-hide="dashboard">Dashboard</a> | <a href="#/" ng-click="logout()">Logout</a> 
+</div>
+
+<h1 class="fw">Welcome, {{ current_user.first_name }}</h1>
+<hr class="fw">
+
+<form id="dashboardFilter" class="fw">
+	<input type="text" ng-model="filterPosts" placeholder="Filter...">
+</form>
+
+<div class="fw">
+	<table id="dashboardTable" >
+		<tr>
+			<th>Category</th>
+			<th>Topic</th>
+			<th>User Name</th>
+			<th>Posts</th>
+		</tr>
+		<tr ng-repeat="post in posts | filter:filterPosts">
+			<td>{{ post.category }}</td>
+			<td><a href="#/topic/{{ post._id }}">{{ post.topic }}</a></td>
+			<td><a href="#/user/{{ post.user.id }}">{{ post.user.name }}</a></td>
+			<td>{{ post.answers.length }}</td>
+		</tr>
+	</table>
+</div>
+
+
+<div id="addTopic" class="fw">
+	<h4>Add a new Topic</h4>
+
+	<div ng-if="topicErrors">
+		<div ng-repeat="message in topicErrors">
+			<span class="error">{{ message.message }}</span>
+		</div>
+	</div>
+
+
+
+	<form ng-submit="createPost(newPost)">
+		<label for="topic">Topic:</label>
+		<input type="text" ng-model="newPost.topic"><br>
+
+		<label for="description">Description:</label>
+		<textarea name="" cols="100" rows="5" ng-model="newPost.description"></textarea><br>
+
+		<label for="category">Category:</label>
+		<select ng-model="newPost.category">
+			<option ng-repeat="category in categories" value="{{ $index }}">{{ category.category }}</option>
+		</select><br>
+
+		<input type="submit" value="Submit" class="btn">
+	</form>
+</div>
