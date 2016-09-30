@@ -15,15 +15,15 @@ angular.module('app')
 				err=>q.reject(err)
 			);
 			return q.promise;
-		}
+		};
 
 ////////// Initialize Users in Factory
 		this.index = function(){
-			return httpPromise($http.get('/users/index'))
-			newPromise.then(
-				ret=>{
-					users = ret.data
-					return ret
+			return httpP($http.get('/users/index'))
+			.then(
+				res=>{
+					users = res.data
+					return res
 				}
 			)
 		};
@@ -33,37 +33,33 @@ angular.module('app')
 			function findUser(user){
 				return user._id == idx.id;
 			}
-			if(users.length == 0){
-				return this.index()
-				.then(res=>users.data.find(findUser))
-			}else{
-				return $q(function(resolve, reject){
-					resolve(users.data.find(findUser));
-				});
-			}
+			return this.index()
+			.then(
+				res=>users.data.find(findUser)
+			)
 		};
 
 ////////// Create
 		this.register = function(newuser){
-			return httpPromise($http.post('/users/create', newuser))
+			return httpP($http.post('/users/create', newuser))
 			.then(
 				res=>{
 					current_user = res.data.data;
 					return self.index();
 				}, 
-				err=>err
+				err=>$q.reject(err)
 			)
 		};
 
 ////////// Login
 		this.login = function(user){
-			return httpPromise($http.post('/users/login', user))
+			return httpP($http.post('/users/login', user))
 			.then(
 				res=>{
 					current_user = res.data.data;
 					return res;
 				}, 
-				err=>console.log(err)
+				err=>$q.reject(err)
 			)
 		};
 

@@ -19,7 +19,9 @@ angular.module('app')
 	getPost();
 
 	$scope.createAnswer = function(newAnswer){
-		checkLogin();
+		if(checkLogin()){
+			return
+		};
 		newAnswer.user = $scope.current_user;
 		postFactory.createAnswer(newAnswer, $routeParams)
 		.then(function(res){
@@ -29,7 +31,9 @@ angular.module('app')
 	};
 
 	$scope.createComment = function(newComment){
-		checkLogin();
+		if(checkLogin()){
+			return
+		};
 		// REFORMAT newComment
 		var idx = Object.keys(newComment)[0]
 		newComment.content = newComment[idx].content;
@@ -50,7 +54,9 @@ angular.module('app')
 	}
 
 	$scope.voteUp = function(idx){
-		checkLogin();
+		if(checkLogin()){
+			return
+		};
 		postFactory.upVote($scope.post._id, $scope.post.answers[idx], $scope.current_user)
 		.then(function(res){
 			getPost();

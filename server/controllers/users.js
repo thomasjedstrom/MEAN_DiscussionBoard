@@ -17,8 +17,6 @@ function usersController(){
 	this.create = function(req,res){
 		return Users.create(req.body, function(err, result){
 			if(err){
-				console.log("=============REGERROR ")
-				console.log(err)
 				return res.json({errors: err});
 			};
 			res.json({data: result});
@@ -35,9 +33,6 @@ function usersController(){
 	};
 
 	this.login = function(req,res){
-		console.log("==============LOGIN")
-		console.log(req.body.email)
-		console.log(req.body.password)
 		if(!req.body.email || !req.body.password){
 			return res.json({
 				errors: {
@@ -75,14 +70,11 @@ function usersController(){
 	};
 
 	this.upVote = function(req,res){
-		console.log("++++++++++++++")
-		console.log(req.body)
 		return Users.findOne({_id: req.params.id}, function(err, result){
 			if(err){
 				return res.json({errors: err});
 			}else{
 				result.upvotes.push(req.body._id)
-				console.log(result)
 				return res
 			}
 			res.json({data: result});

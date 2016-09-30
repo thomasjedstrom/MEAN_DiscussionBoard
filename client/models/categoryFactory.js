@@ -7,32 +7,22 @@ angular.module('app')
 		var self = this;
 
 ////////// httpPromise
-		function httpPromise(httpRequest){
-			var myPromise = $q.defer();
-			httpRequest.then(
-				function(res){
-					if(res.data.errors){
-						return myPromise.reject(res);
-					}else{
-						return myPromise.resolve(res);
-					}
-				},
-				function(err){
-					myPromise.reject(err);
-				}
+		function httpP(req){
+			let q = $q.defer();
+			req.then(
+				res=>(res.data.errors)?q.reject(res):q.resolve(res),
+				err=>q.reject(err)
 			);
-			return myPromise.promise;
+			return q.promise;
 		}
 
 ////////// Initialize Categorys in Factory
 		this.index = function(){
-			var newPromise = httpPromise($http.get('/categories/index'))
-
-			newPromise.then(function(ret){
+			return httpP($http.get('/categories/index'))
+			.then(function(ret){
 				categories = ret.data
 				return ret
 			})
-			return newPromise
 		};
 	}
 	return new categoryFactory();

@@ -8,7 +8,6 @@ angular.module('app')
 			postFactory.findUser($routeParams)
 			.then(function(res){
 				$scope.data = res;
-				console.log($scope.data)
 			})
 		})
 	};

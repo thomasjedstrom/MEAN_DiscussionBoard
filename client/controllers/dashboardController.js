@@ -1,8 +1,12 @@
 angular.module('app')
 .controller('dashboardController', ['$scope', '$location', 'userFactory', 'postFactory', 'categoryFactory', '$moment', function($scope, $location, userFactory, postFactory, categoryFactory, $momemt) {
 
-	// for hiding dashboard link
-	$scope.dashboard;
+	function checkLogin(){
+		if(Object.keys($scope.current_user).length == 0){
+			alert("Sorry, you were logged out, please log back in")
+			return $location.url('/');
+		}
+	}
 
 	$scope.current_user = userFactory.getCurrentUser();
 	$scope.newPost = {};
@@ -25,10 +29,9 @@ angular.module('app')
 	index();
 
 	$scope.createPost = function(newPost){
-		if(Object.keys($scope.current_user).length == 0){
-			alert("Sorry, you were logged out, please log back in")
-			return $location.url('/');
-		}
+		if(checkLogin()){
+			return
+		};
 		newPost.user = {};
 		newPost.user.name = $scope.current_user.first_name;
 		newPost.user.id = $scope.current_user._id;
@@ -38,6 +41,7 @@ angular.module('app')
 		postFactory.createPost(newPost)
 		.then(
 			function(res){
+				$scope.topicErrors = null
 				index();
 			},
 			function(err){

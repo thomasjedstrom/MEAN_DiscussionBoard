@@ -7,32 +7,22 @@ angular.module('app')
 		var self = this;
 
 ////////// httpPromise
-		function httpPromise(httpRequest){
-			var myPromise = $q.defer();
-			httpRequest.then(
-				function(res){
-					if(res.data.errors){
-						return myPromise.reject(res);
-					}else{
-						return myPromise.resolve(res);
-					}
-				},
-				function(err){
-					myPromise.reject(err);
-				}
+		function httpP(req){
+			let q = $q.defer();
+			req.then(
+				res=>(res.data.errors)?q.reject(res):q.resolve(res),
+				err=>q.reject(err)
 			);
-			return myPromise.promise;
+			return q.promise;
 		}
 
 ////////// Initialize Posts in Factory
 		this.index = function(){
-			var newPromise = httpPromise($http.get('/posts/index'))
-
-			newPromise.then(function(ret){
+			return httpP($http.get('/posts/index'))
+			.then(function(ret){
 				posts = ret.data
 				return ret
 			})
-			return newPromise
 		};
 
 ////////// Get a Post
@@ -98,23 +88,21 @@ angular.module('app')
 
 ////////// Create Post
 		this.createPost = function(newpost){
-			var newPromise = httpPromise($http.post('/posts/createpost', newpost))
-
-			newPromise.then(
+			return httpP($http.post('/posts/createpost', newpost))
+			.then(
 				function(res){
 					return self.index();
 				},
 				function(err){
-					return err;
-				})
-			return newPromise;
+					return $q.reject(err);
+				}
+			)
 		};
 
 ////////// Create Answer
 		this.createAnswer = function(newanswer, id){
-			var newPromise = httpPromise($http.post('/posts/createanswer/' + id.id, newanswer))
-
-			newPromise.then(
+			return httpP($http.post('/posts/createanswer/' + id.id, newanswer))
+			.then(
 				function(res){
 					posts = [];
 					return res;
@@ -122,29 +110,28 @@ angular.module('app')
 				function(err){
 					newPromise.err();
 					return err;
-				})
-			return newPromise;
+				}
+			)
 		}
 
 ////////// Create Comment
 		this.createComment = function(newcomment, id){
-			var newPromise = httpPromise($http.post('/posts/createcomment/' + id.id, newcomment))
-
-			newPromise.then(
+			return httpP($http.post('/posts/createcomment/' + id.id, newcomment))
+			.then(
 				function(res){
 					posts = [];
 					return res;
 				},
 				function(err){
 					return err;
-				})
-			return newPromise;
+				}
+			)
 		}
 
 ////////// UpVote
 		this.upVote = function(post, answer, user){
 			// upVote in Posts
-			var postPromise = httpPromise($http.post('/posts/upvote/' + post, answer))
+			var postPromise = httpP($http.post('/posts/upvote/' + post, answer))
 			postPromise.then(
 				function(res){
 					posts = [];
@@ -155,7 +142,7 @@ angular.module('app')
 				}
 			)
 			// upVote in Users
-			var userPromise = httpPromise($http.post('/users/upvote/' + user._id, answer))
+			var userPromise = httpP($http.post('/users/upvote/' + user._id, answer))
 			userPromise.then(
 				function(res){
 					return res;
@@ -171,15 +158,15 @@ angular.module('app')
 
 ////////// Destroy
 		this.delete = function(id){
-			var newPromise = httpPromise($http.delete('/posts/delete' + id))
-			newPromise.then(
+			return httpP($http.delete('/posts/delete' + id))
+			.then(
 				function(res){
 					self.index();
 				},
 				function(err){
 					return err;
-				})
-			return newPromise; 
+				}
+			)
 		};
 	}
 	return new postFactory();
