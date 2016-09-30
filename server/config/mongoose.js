@@ -5,6 +5,7 @@ var mongoose      = require('mongoose'),
     models_path   = path.join( __dirname, "../models"),
     reg           = new RegExp( ".js$", "i" ),
     dbURI         = process.env.MONGO_URL;
+    // dbURI         = 'mongodb://localhost/discussion_board_db';
 
 mongoose.connect( dbURI );
 

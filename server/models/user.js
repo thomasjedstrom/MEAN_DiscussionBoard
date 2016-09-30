@@ -25,6 +25,12 @@ UserSchema = new mongoose.Schema({
 		required: [true, "Your last name is required"],
 		trim: true,
 	},
+	upvotes: [{
+		id: String,
+	}],
+	downvotes: [{
+		id: String,
+	}],
 	// topics: [{
 	// 	id: String,
 	// }],

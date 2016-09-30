@@ -13,5 +13,9 @@ module.exports = function(app){
 	app.post('/posts/createanswer/:id', posts.createAnswer);
 	app.post('/posts/createcomment/:id', posts.createComment);
 
+	// UpVotes
+	app.post('/posts/upvote/:id', posts.upVote);
+	app.post('/users/upvote/:id', users.upVote);
+
 	app.get('/categories/index', categories.index);
 }

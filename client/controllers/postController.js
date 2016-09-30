@@ -1,6 +1,13 @@
 angular.module('app')
 .controller('postController', ['$scope', '$location', 'postFactory', 'userFactory', '$routeParams', function($scope, $location, postFactory, userFactory, $routeParams) {
 
+	function checkLogin(){
+		if(Object.keys($scope.current_user).length == 0){
+			alert("Sorry, you were logged out, please log back in")
+			return $location.url('/');
+		}
+	}
+
 	$scope.current_user = userFactory.getCurrentUser();
 
 	var getPost = function(){
@@ -12,10 +19,7 @@ angular.module('app')
 	getPost();
 
 	$scope.createAnswer = function(newAnswer){
-		if(Object.keys($scope.current_user).length == 0){
-			alert("Sorry, you were logged out, please log back in")
-			return $location.url('/');
-		}
+		checkLogin();
 		newAnswer.user = $scope.current_user;
 		postFactory.createAnswer(newAnswer, $routeParams)
 		.then(function(res){
@@ -25,10 +29,7 @@ angular.module('app')
 	};
 
 	$scope.createComment = function(newComment){
-		if(Object.keys($scope.current_user).length == 0){
-			alert("Sorry, you were logged out, please log back in")
-			return $location.url('/');
-		}
+		checkLogin();
 		// REFORMAT newComment
 		var idx = Object.keys(newComment)[0]
 		newComment.content = newComment[idx].content;
@@ -46,6 +47,18 @@ angular.module('app')
 	$scope.logout = function(){
 		userFactory.logout()
 		$location.url('/');
+	}
+
+	$scope.voteUp = function(idx){
+		checkLogin();
+		postFactory.upVote($scope.post._id, $scope.post.answers[idx], $scope.current_user)
+		.then(function(res){
+			getPost();
+		})
+	}
+
+	$scope.voteDown = function(idx){
+		checkLogin();
 	}
 
 

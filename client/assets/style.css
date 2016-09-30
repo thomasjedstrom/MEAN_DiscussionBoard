@@ -98,3 +98,14 @@ input, textarea, select{
 .indenttwo{
 	margin-left: 10em;
 }
+.answerContent{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}/*
+.votes{
+	display: inline-block;
+	width: 85%;
+	text-align: right;
+}
+*/

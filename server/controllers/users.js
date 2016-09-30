@@ -73,6 +73,21 @@ function usersController(){
 			}
 		});
 	};
+
+	this.upVote = function(req,res){
+		console.log("++++++++++++++")
+		console.log(req.body)
+		return Users.findOne({_id: req.params.id}, function(err, result){
+			if(err){
+				return res.json({errors: err});
+			}else{
+				result.upvotes.push(req.body._id)
+				console.log(result)
+				return res
+			}
+			res.json({data: result});
+		})
+	}
 }
 
 module.exports = new usersController();

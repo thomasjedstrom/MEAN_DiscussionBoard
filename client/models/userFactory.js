@@ -8,32 +8,24 @@ angular.module('app')
 		var self = this;
 
 ////////// httpPromise
-		function httpPromise(httpRequest){
-			var myPromise = $q.defer();
-			httpRequest.then(
-				function(res){
-					if(res.data.errors){
-						return myPromise.reject(res);
-					}else{
-						return myPromise.resolve(res);
-					}
-				},
-				function(err){
-					myPromise.reject(err);
-				}
+		function httpP(req){
+			let q = $q.defer();
+			req.then(
+				res=>(res.data.errors)?q.reject(res):q.resolve(res),
+				err=>q.reject(err)
 			);
-			return myPromise.promise;
+			return q.promise;
 		}
 
 ////////// Initialize Users in Factory
 		this.index = function(){
-			var newPromise = httpPromise($http.get('/users/index'))
-
-			newPromise.then(function(ret){
-				users = ret.data
-				return ret
-			})
-			return newPromise
+			return httpPromise($http.get('/users/index'))
+			newPromise.then(
+				ret=>{
+					users = ret.data
+					return ret
+				}
+			)
 		};
 
 ////////// Get a User
@@ -43,9 +35,7 @@ angular.module('app')
 			}
 			if(users.length == 0){
 				return this.index()
-				.then(function(res){
-					return users.data.find(findUser)
-				})
+				.then(res=>users.data.find(findUser))
 			}else{
 				return $q(function(resolve, reject){
 					resolve(users.data.find(findUser));
@@ -55,40 +45,33 @@ angular.module('app')
 
 ////////// Create
 		this.register = function(newuser){
-			var newPromise = httpPromise($http.post('/users/create', newuser))
-			newPromise.then(
-				function(res){
+			return httpPromise($http.post('/users/create', newuser))
+			.then(
+				res=>{
 					current_user = res.data.data;
 					return self.index();
-				},
-				function(err){
-					return err;
-				})
-			return newPromise;
+				}, 
+				err=>err
+			)
 		};
 
 ////////// Login
 		this.login = function(user){
-			var newPromise = httpPromise($http.post('/users/login', user))
-			newPromise.then(function(res){
-				current_user = res.data.data;
-				return res;
-			})
-			.catch(function(error){
-				console.log(error)
-			})
-			return newPromise;
+			return httpPromise($http.post('/users/login', user))
+			.then(
+				res=>{
+					current_user = res.data.data;
+					return res;
+				}, 
+				err=>console.log(err)
+			)
 		};
 
 ////////// Logout
-		this.logout = function(user){
-			current_user = {};
-		};		
+		this.logout = user=>current_user
 
 ////////// Get Current User
-		this.getCurrentUser = function(){
-			return current_user;
-		}
+		this.getCurrentUser = ()=>current_user;
 
 	}
 	return new userFactory();

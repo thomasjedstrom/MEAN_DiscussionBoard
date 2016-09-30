@@ -141,6 +141,33 @@ angular.module('app')
 			return newPromise;
 		}
 
+////////// UpVote
+		this.upVote = function(post, answer, user){
+			// upVote in Posts
+			var postPromise = httpPromise($http.post('/posts/upvote/' + post, answer))
+			postPromise.then(
+				function(res){
+					posts = [];
+					return res;
+				},
+				function(err){
+					return err;
+				}
+			)
+			// upVote in Users
+			var userPromise = httpPromise($http.post('/users/upvote/' + user._id, answer))
+			userPromise.then(
+				function(res){
+					return res;
+				},
+				function(err){
+					return err;
+				}
+			)
+			return Promise.all([postPromise, userPromise]);
+		}
+
+
 
 ////////// Destroy
 		this.delete = function(id){

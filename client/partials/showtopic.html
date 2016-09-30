@@ -28,8 +28,10 @@
 
 
 	<div class="answerContent">
-		<p><a href="#/user/{{ answer.user._id }}">{{ answer.user.first_name }}</a>: {{ answer.content }}</p>
-		<span>UP/DOWNVOTE FIX ME</span>
+		<p>
+			<a href="#/user/{{ answer.user._id }}">{{ answer.user.first_name }}</a>: {{ answer.content }}
+		</p>
+		<element class="votes">{{ answer.upvote }} <button class="btn blue" ng-click="voteUp($index)">UP</button> {{ answer.downvote }} <button class="btn red" ng-click="voteDown($index)">DOWN</button></element>
 	</div>
 
 	<div class="answerComments indentone" ng-repeat="comment in answer.comments">

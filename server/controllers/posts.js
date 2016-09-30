@@ -53,6 +53,26 @@ function postsController(){
 			}
 		})
 	};
+
+	this.upVote = function(req,res){
+		return Posts.findOne({_id: req.params.id}, function(err, result){
+			if(err){
+				return res.json({errors: err});
+			}else{
+				function findAnswer(answer){
+					return answer._id == req.body._id;
+				}
+				// Find the answer in the post
+				var idx = result.answers.findIndex(findAnswer)
+
+				// Increment upVote
+				result.answers[idx].upvote += 1;
+
+				result.save();
+				return res.json({data: result})
+			}
+		})
+	}
 }
 
 module.exports = new postsController();
