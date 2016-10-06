@@ -55,10 +55,14 @@ function postsController(){
 	};
 
 	this.upVote = function(req,res){
+		console.log("CONTROLLER 1")
+		console.log(req.body)
 		return Posts.findOne({_id: req.params.id}, function(err, result){
 			if(err){
+				console.log("CONTROLLER 2")
 				return res.json({errors: err});
 			}else{
+				console.log("CONTROLLER 3")
 				function findAnswer(answer){
 					return answer._id == req.body._id;
 				}
