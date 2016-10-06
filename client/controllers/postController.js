@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('postController', ['$scope', '$location', 'postFactory', 'userFactory', '$routeParams', function($scope, $location, postFactory, userFactory, $routeParams) {
+.controller('postController', ['$scope', '$location', 'postFactory', 'userFactory', '$routeParams', '$moment', function($scope, $location, postFactory, userFactory, $routeParams, $moment) {
 
 	function checkLogin(){
 		if(Object.keys($scope.current_user).length == 0){
@@ -48,24 +48,41 @@ angular.module('app')
 		})
 	};
 
-	$scope.logout = function(){
-		userFactory.logout()
-		$location.url('/');
-	}
 
-	$scope.voteUp = function(idx){
+	$scope.voteUp = function(answer){
 		if(checkLogin()){
 			return
 		};
-		postFactory.upVote($scope.post._id, $scope.post.answers[idx], $scope.current_user)
+		function findAnswer(a){
+			return a._id === answer._id
+		}
+		let x = $scope.post.answers.filter(findAnswer)
+		postFactory.upVote($scope.post._id, x[0], $scope.current_user)
 		.then(function(res){
 			getPost();
 		})
 	}
 
-	$scope.voteDown = function(idx){
-		checkLogin();
+	$scope.voteDown = function(answer){
+		if(checkLogin()){
+			return
+		};
+		function findAnswer(a){
+			return a._id === answer._id
+		}
+		let x = $scope.post.answers.filter(findAnswer)
+		postFactory.downVote($scope.post._id, x[0], $scope.current_user)
+		.then(function(res){
+			getPost();
+		})
 	}
 
 
+	$scope.time = new Date();
+
+
+	$scope.logout = function(){
+		userFactory.logout()
+		$location.url('/');
+	}
 }]);

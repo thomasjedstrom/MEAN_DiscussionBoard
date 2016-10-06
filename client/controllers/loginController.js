@@ -3,9 +3,15 @@ angular.module('app')
 
 	$scope.regErrors = null;
 	$scope.loginErrors = null;
+	$scope.newuser = {};
+	$scope.newuser.confirm_password = '';
 
 	$scope.register = function(newuser){
-		console.log(newuser)
+		if($scope.newuser.password){
+			if($scope.newuser.password != $scope.newuser.confirm_password){
+				 return $scope.regErrors = {password_validation:{message: "Password didn't match Confirm Password"}}
+			}
+		}
 		userFactory.register(newuser)
 		.then(
 			res=>{
@@ -30,6 +36,4 @@ angular.module('app')
 			}
 		)
 	};
-
-
 }]);

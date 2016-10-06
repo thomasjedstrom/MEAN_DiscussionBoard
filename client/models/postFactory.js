@@ -90,12 +90,8 @@ angular.module('app')
 		this.createPost = function(newpost){
 			return httpP($http.post('/posts/createpost', newpost))
 			.then(
-				function(res){
-					return self.index();
-				},
-				function(err){
-					return $q.reject(err);
-				}
+				res=>self.index(),
+				err=>$q.reject(err)
 			)
 		};
 
@@ -103,11 +99,11 @@ angular.module('app')
 		this.createAnswer = function(newanswer, id){
 			return httpP($http.post('/posts/createanswer/' + id.id, newanswer))
 			.then(
-				function(res){
+				res=>{
 					posts = [];
 					return res;
 				},
-				function(err){
+				err=>{
 					newPromise.err();
 					return err;
 				}
@@ -122,50 +118,56 @@ angular.module('app')
 					posts = [];
 					return res;
 				},
-				function(err){
-					return err;
-				}
+				err=>err
 			)
 		}
 
 ////////// UpVote
 		this.upVote = function(post, answer, user){
 			// upVote in Posts
-			var postPromise = httpP($http.post('/posts/upvote/' + post, answer))
+			let postPromise = httpP($http.post('/posts/upvote/' + post, answer))
 			postPromise.then(
 				function(res){
 					posts = [];
 					return res;
 				},
-				function(err){
-					return err;
-				}
+				err=>err
 			)
 			// upVote in Users
-			var userPromise = httpP($http.post('/users/upvote/' + user._id, answer))
+			let userPromise = httpP($http.post('/users/upvote/' + user._id, answer))
 			userPromise.then(
-				function(res){
-					return res;
-				},
-				function(err){
-					return err;
-				}
+				res=>res,
+				err=>err
 			)
 			return Promise.all([postPromise, userPromise]);
 		}
-
+////////// DownVote
+		this.downVote = function(post, answer, user){
+			// upVote in Posts
+			let postPromise = httpP($http.post('/posts/downvote/' + post, answer))
+			postPromise.then(
+				function(res){
+					posts = [];
+					return res;
+				},
+				err=>err
+			)
+			// upVote in Users
+			let userPromise = httpP($http.post('/users/downvote/' + user._id, answer))
+			userPromise.then(
+				res=>res,
+				err=>err
+			)
+			return Promise.all([postPromise, userPromise]);
+		}
 
 
 ////////// Destroy
 		this.delete = function(id){
 			return httpP($http.delete('/posts/delete' + id))
 			.then(
-				function(res){
-					self.index();
-				},
-				function(err){
-					return err;
-				}
+				res=>self.index(),
+				err=>err
 			)
 		};
 	}

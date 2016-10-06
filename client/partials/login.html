@@ -1,55 +1,54 @@
-<div class="modle">
-	<h4>Hello!</h4>
-	<p>Please join the discussion and share your ideas</p>
+<div id="navbar">
+	<h1 id="logo">Discussion Board</h1>
+	<div id="navButtons">
+	</div>
+</div>
 
+<div class="panel">
+	<h2 class="panelTitle">Register</h2>
 
-	<div class="panel">
-		<h2 class="panelTitle">Login</h2>
-
-		<div ng-if="loginErrors">
-				<span class="error" ng-bind="loginErrors"></span>
+	<div ng-if="regErrors">
+		<div ng-repeat="message in regErrors">
+			<span class="error">{{ message.message }}</span>
 		</div>
+	</div>
 
+	<form ng-submit="register(newuser)">
+		<input type="text" ng-model="newuser.email">
+		<label for="email">Email</label><br>
 
-		<form ng-submit="login(user)">
-			<input type="text" ng-model="user.email">
-			<label for="email">Email</label><br>
+		<input type="text" ng-model="newuser.first_name">
+		<label for="first_name">First Name</label><br>
 
-			<input type="password" ng-model="user.password">
-			<label for="password">Password</label><br>
+		<input type="text" ng-model="newuser.last_name">
+		<label for="last_name">Last Name</label><br>
 
-			<input type="submit" value="Login User" class="btn">
-		</form>
+		<input type="password" ng-model="newuser.password">
+		<label for="password">Password</label><br>
 
+		<input type="password" ng-model="newuser.confirm_password">
+		<label for="confirm_password">Confirm Password</label><br>
+
+		<input type="submit" value="Create User" class="btn">
+	</form>
+</div>
+
+<div class="panel">
+	<h2 class="panelTitle">Login</h2>
+
+	<div ng-if="loginErrors">
+			<span class="error" ng-bind="loginErrors"></span>
 	</div>
 
 
-	<div class="panel">
-		<h2 class="panelTitle">Register</h2>
+	<form ng-submit="login(user)">
+		<input type="text" ng-model="user.email">
+		<label for="email">Email</label><br>
 
-		<div ng-if="regErrors">
-			<div ng-repeat="message in regErrors">
-				<span class="error">{{ message.message }}</span>
-			</div>
-		</div>
+		<input type="password" ng-model="user.password">
+		<label for="password">Password</label><br>
 
-		<form ng-submit="register(newuser)">
-			<input type="text" ng-model="newuser.email">
-			<label for="email">Email</label><br>
+		<input type="submit" value="Login User" class="btn">
+	</form>
 
-			<input type="text" ng-model="newuser.first_name">
-			<label for="first_name">First Name</label><br>
-
-			<input type="text" ng-model="newuser.last_name">
-			<label for="last_name">Last Name</label><br>
-
-			<input type="password" ng-model="newuser.password">
-			<label for="password">Password</label><br>
-
-			<input type="password" ng-model="newuser.confirm_password">
-			<label for="confirm_password">Confirm Password</label><br>
-
-			<input type="submit" value="Create User" class="btn">
-		</form>
-	</div>
 </div>

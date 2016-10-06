@@ -17,5 +17,4 @@ angular.module('app')
 		userFactory.logout()
 		$location.url('/');
 	}
-
 }]);

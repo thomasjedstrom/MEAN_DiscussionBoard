@@ -17,5 +17,9 @@ module.exports = function(app){
 	app.post('/posts/upvote/:id', posts.upVote);
 	app.post('/users/upvote/:id', users.upVote);
 
+	// DownVotes
+	app.post('/posts/downvote/:id', posts.downVote);
+	app.post('/users/downvote/:id', users.downVote);
+
 	app.get('/categories/index', categories.index);
 }

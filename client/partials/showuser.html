@@ -1,6 +1,11 @@
 <div id="navbar">
-	<a href="#/dashboard">Dashboard</a> | <a href="#/" ng-click="logout()">Logout</a> 
+	<h1 id="logo">Discussion Board</h1>
+	<div id="navButtons">
+		<a href="#/dashboard">Dashboard</a> <a href="#/" ng-click="logout()" class="btn">Logout</a> 	
+	</div>
 </div>
+
+
 
 <div id="showUser">
 	<h2>Username: {{ user.first_name }} {{ user.last_name }}</h2>
@@ -8,6 +13,6 @@
 	<h4>Posted...</h4>
 
 	<p>{{ data.topics }} Topics</p>
-	<p>{{ data.posts }} Posts</p>
+	<p>{{ data.posts }} Answers</p>
 	<p>{{ data.comments }} Comment</p>
 </div>

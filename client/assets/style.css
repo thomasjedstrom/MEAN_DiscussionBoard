@@ -1,45 +1,67 @@
+/*GLOBAL*/
 *{
 	font-family: sans-serif;
+}
+p{
+	display: block;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	margin: 0px;
+}
+body{
+	margin: 0px;
+	background: lightgray;
 }
 #wrapper{
 	display: flex;
 	flex-wrap: wrap;
-	max-width: 1000px;
+	justify-content: space-around;
+	align-content: flex-start;
+	max-width: 1200px;
+	min-height: 100vh;
 	margin: auto;
+	box-shadow: 0px 5px 10px black;	
+	background: white;
 }
-.fw{
-	width: 100vw;
-}
-table {
-    border: 3px solid black;
-    border-collapse: collapse;
-}
-
-th, td {
-    border-left: 3px solid black;
-    border-right: 3px solid black;
-}
-tr:nth-child(even) {background-color: #f2f2f2}
-th {
-    background-color: gray;
-    color: white;
-}
-
-.panel{
-	border: 3px solid black;
-	display: inline-block;
-	margin: 20px;
-	padding: 2em;
+#navbar{
+	margin: auto;
+	display: flex;
+	align-items: center;
+	flex: 0 0 100%;
+	max-width: 1200px;
+	height: 100px;
+	padding: 0px;
+	background: #eee;
+	box-shadow: 0px 5px 10px black;
+	text-align: left;
+	justify-content: flex-end;
 	position: relative;
 }
-.panelTitle{
+#navButtons{
+	margin-right: 30px;
+}
+#logo{
 	position: absolute;
-	top: -1.5em;
-	left: 1em;
-	background: white;
-	display: inline-block;
+	top: 10px;
+	left: 30px;
+}
+.error{
+	color: red;
+	background: pink;
+	border: 3px solid red;
+	border-radius: 5px;
+	padding: 4px;
+	line-height: 2.5em;
 }
 
+
+
+/*HELPERS*/
+.fw{
+	width: 100%;
+}
 .btn{
 	display: inline-block;
 	margin: 25px;
@@ -60,31 +82,72 @@ th {
 	background: red;
 	color: white;
 }
+
+
+
+/*TABLE*/
+table {
+	border: 3px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	border-left: 3px solid black;
+	border-right: 3px solid black;
+}
+tr:nth-child(even) {background-color: #f2f2f2}
+th {
+	background-color: gray;
+	color: white;
+}
+
+
+
+
+/*=========== LOGIN ===============*/
+.panel{
+	border: 6px inset gray;
+	display: inline-block;
+	margin: 50px 0px;
+	padding: 2em;
+	position: relative;
+	align-self: flex-start;
+	box-shadow: 0px 3px 10px gray;
+}
+.panelTitle{
+	position: absolute;
+	top: -1.5em;
+	left: 1em;
+	background: white;
+	display: inline-block;
+}
+
+
 input, textarea, select{
 	border: 3px solid black;
 	margin: 5px;
 }
-.error{
-	color: red;
-	background: pink;
-	border: 3px solid red;
-	border-radius: 5px;
-	padding: 4px;
-	line-height: 2.5em;
-}
-.leftnav{
-	display: block;
-	width: 15em;
-	height: 90vh;
-}
+
 
 
 /*=========== DASHBOARD ===============*/
+#title{
+	width: 100%;
+	padding-left: 10%;
+	box-sizing: border-box;	
+}
 #dashboardFilter{
 	text-align: right;
+	padding-right: 10%;
+	box-sizing: border-box;
 }
 #dashboardTable{
-	width: 100%;
+	width: 80%;
+	margin: auto;
+}
+#addTopic{
+	width: 80%;
+	margin: auto;
 }
 #addTopic * label{
 	display: inline-block;
@@ -92,6 +155,29 @@ input, textarea, select{
 }
 
 /*============ TOPIC SHOW =============*/
+#post{
+	width: 100%;
+	box-sizing: border-box;
+	margin: auto;
+	background: beige;
+	border-bottom: 1px solid gray;
+}
+#post>h2{
+	margin-left: 5%;
+}
+#postContent{
+	padding: 30px;
+}
+.gray{
+	font-style: italic;
+	color: gray;
+	text-align: right;
+	margin-right: 10%;
+}
+.answer{
+	/*background: beige;*/
+	padding-top: 30px;
+}
 .indentone{
 	margin-left: 5em;
 }
@@ -100,12 +186,35 @@ input, textarea, select{
 }
 .answerContent{
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
-}/*
-.votes{
-	display: inline-block;
-	width: 85%;
-	text-align: right;
+	flex-wrap: wrap;
 }
-*/
+.answerMessage{
+	flex: 1 1 90%;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid gray;
+}
+.answerComments{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.votes{
+	flex: 0 1 100px;
+	margin-left: 10px;
+	position: relative;
+	top: -30px;
+}
+.vote{
+	width: 22px;
+}
+.vote:hover{
+	cursor: pointer;
+}
+
+
+/*============ USER SHOW =============*/
+#showUser{
+	
+}
