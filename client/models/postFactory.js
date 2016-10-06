@@ -112,7 +112,7 @@ angular.module('app')
 
 ////////// Create Comment
 		this.createComment = function(newcomment, id){
-			return httpP($http.post('/posts/createcomment/' + id.id, newcomment))
+			return httpP($http.post('/posts/createcomment/' + id, newcomment))
 			.then(
 				function(res){
 					posts = [];

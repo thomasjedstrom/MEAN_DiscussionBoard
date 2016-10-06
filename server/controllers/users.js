@@ -12,7 +12,6 @@ function usersController(){
 	};
 
 	this.create = function(req,res){
-		console.log(req.body)
 		return Users.create(req.body, (err, result)=>{
 			(err) ? res.json({errors: err}) : res.json({data: result});
 		})
@@ -36,8 +35,6 @@ function usersController(){
 			});				
 		}
 		Users.findOne({email: req.body.email}, function(err, result){
-			console.log(req.body)
-			console.log(result)
 			if(err){
 				return res.json({errors: err});
 			}else if (bcrypt.compareSync(req.body.password, result.password)){

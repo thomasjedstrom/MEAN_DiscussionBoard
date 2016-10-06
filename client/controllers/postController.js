@@ -30,18 +30,16 @@ angular.module('app')
 		})
 	};
 
-	$scope.createComment = function(newComment){
+	$scope.createComment = function(answer){
 		if(checkLogin()){
 			return
 		};
-		// REFORMAT newComment
-		var idx = Object.keys(newComment)[0]
-		newComment.content = newComment[idx].content;
-		delete newComment[idx]
-		newComment.answerID = $scope.post.answers[idx]._id;
-		newComment.user = $scope.current_user;
-
-		postFactory.createComment(newComment, $routeParams)
+		let newComment = {
+			answerID: answer._id,
+			user: $scope.current_user,
+			content: answer.newComment.content
+		}
+		postFactory.createComment(newComment, $routeParams.id)
 		.then(function(res){
 			$scope.newComment = {};
 			getPost();
